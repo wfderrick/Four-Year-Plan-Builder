@@ -14,11 +14,19 @@ def score(hand_cards, starter):
     val_list = getvals(hand_cards + [starter], [])
     card_list = hand_cards + [starter]
     total += count15s(val_list, 0)
-    total += runs(card_list, 0, -1, maxrun(card_list))
+    total += runs(card_list, 0, -1, maxrun(card_list, False), False)
     total += pairs(card_list)
     total += flush(hand_cards, starter)
-    print(total)
+    return total
 
+def four_score(hand):
+    total = 0
+    val_list = getvals(hand, [])
+    total += count15s(val_list, 0)
+    total += runs(hand, 0, -1, maxrun(hand, True), True)
+    total += pairs(hand)
+    total += flush(hand, structs.Card(structs.Suit.NONE, 0, 0))
+    return total
 
 def getvals(cards, vals):
     for i in cards:
@@ -36,10 +44,10 @@ def count15s(cards, sum):
         return count15s(cards[1:], sum) + count15s(cards[1:], sum + cards[0])
 
 
-def maxrun(cards):
+def maxrun(cards, four):
     run_len = 0
     runs_list = []
-    runs_list = listruns(cards, 0, -1, runs_list)
+    runs_list = listruns(cards, 0, -1, runs_list, four)
     if max(runs_list) < 3:
         return 3
     else:
@@ -47,14 +55,21 @@ def maxrun(cards):
     return run_len
 
 
-def runs(cards, length, prev, run_len):
+def runs(cards, length, prev, run_len, four):
     if prev == -1:
-        return (
-            runs(cards[1:], 1, cards[0], run_len)
-            + runs([cards[0]] + cards[2:], 1, cards[1], run_len)
-            + runs(cards[:2] + cards[3:], 1, cards[2], run_len)
-            + runs(cards[:3] + cards[4:], 1, cards[3], run_len)
-        )
+        if four != True:
+            return (
+            runs(cards[1:], 1, cards[0], run_len, four)
+            + runs([cards[0]] + cards[2:], 1, cards[1], run_len, four)
+            + runs(cards[:2] + cards[3:], 1, cards[2], run_len, four)
+            + runs(cards[:3] + cards[4:], 1, cards[3], run_len, four)
+            )
+        else:
+            return (
+            runs(cards[1:], 1, cards[0], run_len, four)
+            + runs([cards[0]] + cards[2:], 1, cards[1], run_len, four)
+            + runs(cards[:2] + cards[3:], 1, cards[2], run_len, four)
+            )
     elif len(cards) == 0:
         if length >= run_len:
             return length
@@ -78,14 +93,21 @@ def runs(cards, length, prev, run_len):
             return add
 
 
-def listruns(cards, length, prev, runs_list):
+def listruns(cards, length, prev, runs_list, four):
     if prev == -1:
-        return (
-            listruns(cards[1:], 1, cards[0], runs_list)
-            + listruns(cards[2:] + [cards[0]], 1, cards[1], runs_list)
-            + listruns(cards[:2] + cards[3:], 1, cards[2], runs_list)
-            + listruns(cards[:3] + cards[4:], 1, cards[3], runs_list)
-        )
+        if four != True:
+            return (
+            listruns(cards[1:], 1, cards[0], runs_list, four)
+            + listruns(cards[2:] + [cards[0]], 1, cards[1], runs_list, four)
+            + listruns(cards[:2] + cards[3:], 1, cards[2], runs_list, four)
+            + listruns(cards[:3] + cards[4:], 1, cards[3], runs_list, four)
+            )
+        else:
+            return (
+            listruns(cards[1:], 1, cards[0], runs_list, four)
+            + listruns(cards[2:] + [cards[0]], 1, cards[1], runs_list, four)
+            + listruns(cards[:2] + cards[3:], 1, cards[2], runs_list, four)
+            )
     elif len(cards) == 0:
         return runs_list + [length]
     else:

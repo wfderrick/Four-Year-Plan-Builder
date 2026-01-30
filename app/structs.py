@@ -84,6 +84,7 @@ class Suit(Enum):
     DIAMONDS = 2
     HEARTS = 3
     SPADES = 4
+    NONE = 5
 
 
 class Face(Enum):
@@ -100,7 +101,7 @@ class Face(Enum):
     JACK = 11
     QUEEN = 12
     KING = 13
-
+    NONE = 14
 
 CONST_CARDS = [
     1,
