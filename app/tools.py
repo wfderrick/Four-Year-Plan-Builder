@@ -23,20 +23,21 @@ def deal(player1_hand, player2_hand, cut_card):
 
     return cut_card
 
+
 # int list, Hand object -> A Hand object full of card objects
 # Takes in a list of integers between 1 and 52 and using the get_card function converts each number
 # into its corresponding Card object and places it into a slot in the parameter Hand object.
 def transform_cards(player_nums, player_hand):
-    player_hand.card1 = get_card(player_nums[0], structs.Card(0, 0, 0))
-    player_hand.card2 = get_card(player_nums[1], structs.Card(0, 0, 0))
-    player_hand.card3 = get_card(player_nums[2], structs.Card(0, 0, 0))
-    player_hand.card4 = get_card(player_nums[3], structs.Card(0, 0, 0))
-    player_hand.card5 = get_card(player_nums[4], structs.Card(0, 0, 0))
-    player_hand.card6 = get_card(player_nums[5], structs.Card(0, 0, 0))
+    track = 0
+    for i in player_nums:
+        player_hand.hand[track] = get_card(i, structs.Card(0, 0, 0))
+        track += 1
+
     return player_hand
 
+
 # int, Card object -> A card object with values corresponding to the number
-#Take in an integer between 1 and 52 and a Card object. Using the number each attribute of the parameter card
+# Take in an integer between 1 and 52 and a Card object. Using the number each attribute of the parameter card
 # object is filled to create the corresponding card for the number.
 def get_card(num, card):
     if num < 14:
@@ -91,6 +92,7 @@ def get_card(num, card):
         card.face = structs.Face.QUEEN
 
     return card
+
 
 # Hand object, List -> Adds all cards from the Hand object to the list
 # Takes in a Hand object and a list. The function checks each slot for a card. If there is not a card

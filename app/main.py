@@ -1,12 +1,12 @@
 import tools
 import structs
-import round
+from round import round
 
 
 def main():
     print("Welcome to my homemade Cribbage game!")
     print("I hope you enjoy!")
-    play = input("Press any button" " to start: ")
+    play = input("Press enter to start: ")
     round_num = 1
     player1_hand = []
     player2_hand = []
@@ -14,10 +14,10 @@ def main():
     player1_score = 0
     player2_score = 0
     crib = []
-    crib_track = 0
     # print("|----------------------------------------------------|\n| Your Score: 0                   Opponent's Score: 0|\n|                                                    |\n|                                                    |\n|                                                    |\n|----------------------------------------------------|")
 
-    round.round(
+    while player1_score < 121 and player2_score < 121:
+        round(
         player1_hand,
         player2_hand,
         cut_card,
@@ -25,7 +25,8 @@ def main():
         player1_score,
         player2_score,
         crib,
-    )
+        )
+        round_num += 1
 
 
 if __name__ == "__main__":

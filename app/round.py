@@ -1,6 +1,6 @@
 import tools
 import structs
-
+from opponentbrain import discard
 
 def round(
     player1_hand, player2_hand, cut_card, round_num, player1_score, player2_score, crib
@@ -43,7 +43,8 @@ def round(
             val2 = input("Enter a value between 1 and 6. ")
 
     player1_hand.remove(int(val1), int(val2), crib)
-    player2_hand.remove(3, 4, crib)
+    comp_discard = discard(player2_hand.hand, [])
+    player2_hand.remove(comp_discard[0], comp_discard[1], crib)
     print(
         "This is your hand.\n"
         "       |||        \n"
@@ -52,6 +53,8 @@ def round(
         "        V         "
     )
     print(f"{player1_hand}\n")
-
-    cut = input("Press any button to see the cut card.")
+    empt = input("Press enter to see the cut card.")
     print(cut_card)
+
+    empt = input("Press enter to begin the pegging round!")
+    
