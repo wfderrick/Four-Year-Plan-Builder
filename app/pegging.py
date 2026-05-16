@@ -36,7 +36,7 @@ def peg_score(prev_cards, new_card, cur_val):
         info[0] += seq_pairs(combined[peg_len - 3 :])
     elif peg_len == 1:
         info[0] += seq_pairs(combined[peg_len - 2 :])
-    additive = []
+    additive = [] 
     for i in combined[::-1]:
         score = 0
         additive.append(i)

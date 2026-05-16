@@ -1,5 +1,5 @@
 import structs
-from calculate import getvals, four_score
+from calculate import four_score
 
 
 def keep_cards(cards, card_list):
@@ -148,3 +148,4 @@ example_hand = [
     structs.Card(structs.Suit.SPADES, structs.Rank.JACK, 10),
     structs.Card(structs.Suit.HEARTS, structs.Rank.EIGHT, 8),
 ]
+

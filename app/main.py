@@ -17,6 +17,7 @@ def main():
     # print("|----------------------------------------------------|\n| Your Score: 0                   Opponent's Score: 0|\n|                                                    |\n|                                                    |\n|                                                    |\n|----------------------------------------------------|")
 
     while player1_score < 121 and player2_score < 121:
+
         round(
             player1_hand,
             player2_hand,

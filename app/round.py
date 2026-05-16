@@ -121,6 +121,7 @@ def round(
             for i in p1_pegging:
                 if i.value + cur_val <= 31:
                     can_play = True
+                    break
             if can_play:
                 if len(p1_pegging) > 0:
                     print(
@@ -134,9 +135,16 @@ def round(
                         print(f"{track}: {i}")
                         track += 1
                     card_num = input(f"Enter the number next to the card you would like to peg.")
-                    while (not card_num.isdigit()) or int(card_num) > track or int(card_num) < 1:
-                        card_num = input(f"Enter a number between 1 and {track - 1}")
-                    card = p1_pegging[int(card_num) - 1]
+                    check = False
+                    while ((not card_num.isdigit()) or int(card_num) > track or int(card_num) < 1) or check == False:
+                        if (not card_num.isdigit()) or int(card_num) > track or int(card_num) < 1:
+                            card_num = input(f"Enter a number between 1 and {track - 1}")
+                        card = p1_pegging[int(card_num) - 1]
+                        if card.value + cur_val <= 31:
+                            check = True
+                        else:
+                            card_num = input(f"Enter a different number for a card that is actually playable:")
+
                     if go == True:
                             (p1_score, val) = peg_score(prev_cards, card, cur_val)
                             player1_score += p1_score
@@ -155,6 +163,7 @@ def round(
                         player1_score += 1
                     last_player = 1
                 can_play = False
+
                 input(f"You played a {card} the current value is {cur_val}")
                 if cur_val == 31:
                     cur_val = 0
