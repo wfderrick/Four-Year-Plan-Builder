@@ -26,7 +26,7 @@ def discard(cards, discard):
     return discard
 
 
-def pegging(cur_val, prev, hand):
+def computer_pegging(cur_val, prev, hand):
     val = -1
     if cur_val == 0:
         val = next((x for x in hand if x.value == 4 or x.value == 3), None)
